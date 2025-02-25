@@ -85,3 +85,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
  <li>Need to configure reverse proxy</li>
  <li>Modifications of third-party modules for ga4 analytics ( problems with some modules were observed )</li>
 </ol>
+
+
+<h2>Atomics</h2>
+<p></p>Having installed and configured partytown you will notice an infinitely growing list of requests to the network. Actually it's not HTTP requests, but communication between layers, but it's still annoying, and when debugging network requests it will be very unpleasant.</p>
+<p>To avoid this you should setup <a href="https://partytown.builder.io/atomics">Atomics</a></p>
+<p>Running partytown will be many times faster, and network tab won't have thousands of accesses between layers.</p>
+<p>All you need to do is add Cross-Origin-Embedder-Policy, Cross-Origin-Opener-Policy headers to nginx. </p>
+
+````
+location ~ \.php$ {
+    ...
+    add_header Cross-Origin-Embedder-Policy credentialless always;
+    add_header Cross-Origin-Opener-Policy same-origin always;
+    ...
+}
+````
